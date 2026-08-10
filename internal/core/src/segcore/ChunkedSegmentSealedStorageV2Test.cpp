@@ -2672,7 +2672,8 @@ TEST_P(TestChunkSegmentStorageV2,
     ASSERT_EQ(pins.size(), 1);
     SegmentChunkReader reader(nullptr, segment.get(), RowCount());
     const std::vector<int32_t> offsets{10007, 7, 10007, 0};
-    auto accessor = reader.GetStringDataAccessorByOffsets(
+    auto accessor = reader.GetDataAccessorByOffsets(
+        DataType::VARCHAR,
         fields.at("string1"),
         OffsetView::From(offsets.data(), offsets.size()),
         {pins.data(), pins.size()});

@@ -138,7 +138,7 @@ TEST(LegacyHybridResourceEstimate, ResolvesPersistedChildType) {
           std::pair{ScalarIndexType::MARISA, MARISA_TRIE}}) {
         // Use the same standalone binlog encoding as legacy HYBRID uploads.
         BinarySet binary_set;
-        auto data = std::make_shared<uint8_t[]>(1);
+        auto data = std::shared_ptr<uint8_t[]>(new uint8_t[1]);
         data[0] = static_cast<uint8_t>(type);
         binary_set.Append(INDEX_TYPE, data, 1);
         ASSERT_TRUE(manager.AddFile(binary_set));
@@ -231,7 +231,7 @@ TEST(LegacyHybridResourceEstimate, FallsBackWhenChildTypeIsUnavailable) {
     // Unknown type and invalid payload length must not be decoded as a child.
     for (const size_t size : {1, 2}) {
         BinarySet binary_set;
-        auto data = std::make_shared<uint8_t[]>(size);
+        auto data = std::shared_ptr<uint8_t[]>(new uint8_t[size]);
         data[0] =
             size == 1 ? 255 : static_cast<uint8_t>(ScalarIndexType::BITMAP);
         binary_set.Append(INDEX_TYPE, data, size);
