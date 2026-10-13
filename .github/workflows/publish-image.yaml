@@ -92,25 +92,28 @@ jobs:
           key: ubuntu22.04-go-mod-${{ hashFiles('go.sum', 'pkg/go.sum', 'client/go.sum') }}
           restore-keys: ubuntu22.04-go-mod-
 
+      - name: Tidy Go modules
+        run: ./build/builder.sh /bin/bash -c "go mod tidy && cd pkg && go mod tidy"
+
       - name: Build Milvus
         run: ./build/builder.sh make install
 
       - name: Save ccache
-        if: steps.ccache.outputs.cache-hit != 'true'
+        if: always() && steps.ccache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
         with:
           path: .docker/amd64-ubuntu22.04-ccache
           key: ${{ steps.ccache.outputs.cache-primary-key }}
 
       - name: Save Conan cache
-        if: steps.conan.outputs.cache-hit != 'true'
+        if: always() && steps.conan.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
         with:
           path: .docker/amd64-ubuntu22.04-conan2
           key: ${{ steps.conan.outputs.cache-primary-key }}
 
       - name: Save Go module cache
-        if: steps.gomod.outputs.cache-hit != 'true'
+        if: always() && steps.gomod.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
         with:
           path: .docker/amd64-ubuntu22.04-go-mod
