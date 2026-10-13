@@ -92,8 +92,8 @@ jobs:
           key: ubuntu22.04-go-mod-${{ hashFiles('go.sum', 'pkg/go.sum', 'client/go.sum') }}
           restore-keys: ubuntu22.04-go-mod-
 
-      - name: Tidy pkg Go modules
-        run: ./build/builder.sh /bin/bash -c "cd pkg && go mod tidy"
+      - name: Fix Go module cache permissions
+        run: sudo chmod -R a+rw .docker 2>/dev/null || true
 
       - name: Build Milvus
         run: ./build/builder.sh /bin/bash -c "GOFLAGS=-mod=mod make install"
