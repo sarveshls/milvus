@@ -58,7 +58,8 @@ jobs:
         run: |
           owner=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
           echo "MILVUS_IMAGE_REPO=ghcr.io/${owner}/milvus" >> "$GITHUB_ENV"
-          echo "MILVUS_IMAGE_TAG=${GITHUB_REF_NAME}" >> "$GITHUB_ENV"
+          safe_tag=$(echo "${GITHUB_REF_NAME}" | tr '/' '-')
+          echo "MILVUS_IMAGE_TAG=${safe_tag}" >> "$GITHUB_ENV"
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3

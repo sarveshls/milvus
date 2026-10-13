@@ -36,7 +36,7 @@ require (
 	github.com/tikv/client-go/v2 v2.0.8-0.20260610031342-e999c1f9c7c3
 	github.com/twpayne/go-geom v1.6.1
 	github.com/x448/float16 v0.8.4
-	github.com/zilliztech/woodpecker v0.1.42
+	github.com/zilliztech/woodpecker v0.1.46-azure-spn-test
 	go.etcd.io/etcd/api/v3 v3.5.33
 	go.etcd.io/etcd/client/v3 v3.5.33
 	go.etcd.io/etcd/server/v3 v3.5.33
@@ -248,4 +248,5 @@ replace (
 	github.com/go-kit/kit => github.com/go-kit/kit v0.1.0
 	github.com/ianlancetaylor/cgosymbolizer => github.com/milvus-io/cgosymbolizer v0.0.0-20260810014817-f3b338cf6824
 	github.com/tecbot/gorocksdb => github.com/milvus-io/gorocksdb v0.0.0-20220624081344-8c5f4212846b // indirect
+	github.com/zilliztech/woodpecker => github.com/sarveshls/woodpecker v0.1.46-azure-spn-test
 )
